@@ -1,8 +1,9 @@
+const postcss = require("postcss");
+
 module.exports = (opts = {}) => {
   const { transformers = {} } = opts;
-  return {
-    postcssPlugin: "postat",
-    Declaration(node, { AtRule }) {
+  return (root) => {
+    root.walkDecls((node) => {
       if (node.prop.indexOf("-postat-") === 0) {
         let name = node.prop.replace("-postat-", "");
         let value = node.value;
@@ -10,11 +11,11 @@ module.exports = (opts = {}) => {
           [name, value] = transformers[name](name, value, node);
         }
 
-        let atRule = new AtRule({ name, params: value });
+        let atRule = new postcss.AtRule({ name, params: value });
         node.parent.append(atRule);
         node.remove();
       }
-    },
+    });
   };
 };
 module.exports.postcss = true;
