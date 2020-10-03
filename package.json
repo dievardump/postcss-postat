@@ -9,7 +9,8 @@
     "svelte-postprocessing"
   ],
   "scripts": {
-    "test": "jest-ci --coverage && eslint-ci ."
+    "test": "jest-ci --coverage && eslint-ci .",
+    "release": "np --no-2fa"
   },
   "author": "Simon Fremaux <dievardump@gmail.com>",
   "license": "MIT",
