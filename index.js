@@ -11,7 +11,8 @@ module.exports = (opts = {}) => {
           [name, value] = transformers[name](name, value, node);
         }
 
-        let atRule = new postcss.AtRule({ name, params: value });
+        const AtRule = postcss.AtRule || postcss.atRule;
+        let atRule = new AtRule({ name, params: value });
         node.parent.append(atRule);
         node.remove();
       }
